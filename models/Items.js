@@ -7,7 +7,9 @@ const itemsSchema = new Schema({
     required: true,
   },
   price: Number,
-  stock: Number,
+  stock: Number
+},{
+  timestamps: true
 });
 
 const Items = mongoose.model('Items', itemsSchema);

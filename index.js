@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 6060;
 require('./database');
 const Items = require('./models/Items');
+const Tickets = require('./models/Tickets');
 
 // Middlewares
 app.use(express.json()); // Habilitan el req.body
@@ -15,7 +16,7 @@ app.get('/', (req, res) => res.json({ "message": '¡Bienvenido! 😎' }));
 app.post('/api/v1/items/', (req, res) => {
     const { body } = req;
     return Items.create(body)
-        .then(newMovie => res.status(201).json(newMovie))
+        .then(newItem => res.status(201).json(newItem))
         .catch(err => {
             console.log('😞', err);
             res.status(400).json(err)
@@ -57,6 +58,16 @@ app.delete('/api/v1/items/:id', (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
+// Crear ticket
+app.post('/api/v1/tickets/', async (req, res) => {
+    const { body } = req;
+    return Tickets.create(body)
+        .then(newTicket => res.status(201).json(newTicket))
+        .catch(err => {
+            console.log('😞', err);
+            res.status(400).json(err)
+        })
+});
 
 // Encender el servidor
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

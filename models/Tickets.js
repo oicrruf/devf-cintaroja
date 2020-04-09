@@ -1,15 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Items = require('./Items');
 
 const itemsTickets = new Schema({
-  name: {
-    subtotal: Number,
-    iva: Number,
-    total: Number,
+  item: [{ type: Schema.Types.ObjectId, ref: 'Items' }],
+  subtotal: {
+    type: Number,
+    required: true
   },
-  items: Item,
+  iva: {
+    type: Number,
+    required: true
+  },
+  total: {
+    type: Number,
+    required: true
+  }
+},{
+  timestamps: true
 });
 
-const Items = mongoose.model('Tickets', itemsTickets);
+const Tickets = mongoose.model('Tickets', itemsTickets);
 
-module.exports = Items;
+module.exports = Tickets;
